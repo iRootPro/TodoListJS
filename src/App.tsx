@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TodoList} from "./TodoList";
 import {v1} from "uuid";
+import {AddItemForm} from "./AddItemForm";
 
 
 export type TaskType = {
@@ -64,6 +65,23 @@ function App() {
         setTasks({...tasks})
     }
 
+    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+        let todolistTasks = tasks[todolistId]
+        let task = todolistTasks.find(t => t.id === id)
+        if (task) {
+            task.title = newTitle
+        }
+        setTasks({...tasks})
+    }
+
+    function changeTodoListTitle(todoListID: string, newTitle: string) {
+        const todoList = todoLists.find(tl => tl.id === todoListID)
+        if (todoList) {
+            todoList.title = newTitle
+            setTodoLists([...todoLists])
+        }
+    }
+
     function removeTask(taskId: string, todolistId: string) {
         let todolistTasks = tasks[todolistId]
         tasks[todolistId] = todolistTasks.filter(t => t.id != taskId)
@@ -84,8 +102,23 @@ function App() {
         setTasks({...tasks})
     }
 
+    function addTodoList(title: string) {
+        let newTodoListID = v1()
+        let newTodoList: TodoListType = {
+            id: newTodoListID,
+            title: title,
+            filter: "all"
+        }
+        setTodoLists([...todoLists, newTodoList])
+        setTasks({
+            ...tasks, [newTodoListID]: []
+        })
+    }
+
+
     return (
         <div className="App">
+            <AddItemForm addItem={addTodoList}/>
             {
                 todoLists.map(t => {
                     let allTodolistTasks = tasks[t.id]
@@ -108,6 +141,8 @@ function App() {
                             changeStatus={changeStatus}
                             filter={t.filter}
                             removeTodoList={removeTodoList}
+                            changeTaskTitle={changeTaskTitle}
+                            changeTodoListTitle={changeTodoListTitle}
                         />
                     )
                 })
