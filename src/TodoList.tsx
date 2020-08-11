@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from "react";
+import React, {ChangeEvent} from "react";
 import {FilterValuesType, TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -25,7 +25,6 @@ export function TodoList(props: PropsType) {
     let onAllClickHandler = () => props.changeFilter('all', props.id)
     let onActiveClickHandler = () => props.changeFilter('active', props.id)
     let onCompletedClickHandler = () => props.changeFilter('completed', props.id)
-
 
     function removeTodoList() {
         props.removeTodoList(props.id)

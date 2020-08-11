@@ -13,7 +13,6 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
-
 export type TaskType = {
     id: string,
     title: string,
@@ -22,12 +21,11 @@ export type TaskType = {
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
-type TodoListType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
 }
-
 
 function App() {
     let todolistId1 = v1()
@@ -93,7 +91,7 @@ function App() {
 
     function removeTask(taskId: string, todolistId: string) {
         let todolistTasks = tasks[todolistId]
-        tasks[todolistId] = todolistTasks.filter(t => t.id != taskId)
+        tasks[todolistId] = todolistTasks.filter(t => t.id !== taskId)
         setTasks({...tasks})
     }
 
@@ -105,7 +103,7 @@ function App() {
     }
 
     function removeTodoList(id: string) {
-        let filteredTodoList = todoLists.filter(tl => tl.id != id)
+        let filteredTodoList = todoLists.filter(tl => tl.id !== id)
         setTodoLists(filteredTodoList)
         delete tasks[id]
         setTasks({...tasks})
