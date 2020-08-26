@@ -72,39 +72,43 @@ function App() {
         dispatchToTodolist(action)
     }
 
-        function changeStatus(id: string, isDone: boolean, todolistId: string) {
-            let action = changeTaskStatusAC(id, isDone, todolistId)
-            dispatchToTasks(action)
-        }
+    function changeStatus(id: string, isDone: boolean, todolistId: string) {
+        let action = changeTaskStatusAC(id, isDone, todolistId)
+        dispatchToTasks(action)
+    }
 
 
-        function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
-            let action = changeTaskTitleAC(id, newTitle, todolistId)
-            dispatchToTasks(action)
+    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+        let action = changeTaskTitleAC(id, newTitle, todolistId)
+        dispatchToTasks(action)
 
-        }
+    }
 
-        function changeTodoListTitle(todoListID: string, newTitle: string) {
-            dispatchToTodolist(ChangeTodoListTitleAC(todoListID, newTitle))
-        }
+    function changeTodoListTitle(todoListID: string, newTitle: string) {
+        dispatchToTodolist(ChangeTodoListTitleAC(newTitle, todoListID))
+    }
 
 
     function removeTask(taskId: string, todolistId: string) {
-            dispatchToTasks(removeTaskAC(taskId, todolistId))
+        dispatchToTasks(removeTaskAC(taskId, todolistId))
     }
 
 
     function addTask(newTaskName: string, todolistId: string): void {
-            dispatchToTasks(addTaskAC(newTaskName,todolistId))
+        dispatchToTasks(addTaskAC(newTaskName, todolistId))
     }
 
 
     function removeTodoList(id: string) {
-            dispatchToTodolist(RemoveTodoListAC(id))
+        let action = RemoveTodoListAC(id)
+        dispatchToTodolist(action)
+        dispatchToTasks(action)
     }
 
     function addTodoList(title: string) {
-            dispatchToTodolist(AddTodoListAC(title))
+        let action = AddTodoListAC(title)
+        dispatchToTodolist(action)
+        dispatchToTasks(action)
     }
 
 
