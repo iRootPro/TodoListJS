@@ -1,6 +1,5 @@
-import {FilterValuesType, TasksStateType, TaskType, TodoListType} from "../App";
+import {TasksStateType, TaskType} from "../App";
 import {v1} from "uuid";
-import {act} from "react-dom/test-utils";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolists-reducer";
 
 
