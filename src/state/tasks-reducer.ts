@@ -29,6 +29,7 @@ export type ChangeTaskTitleActionType = {
     taskId: string
 }
 
+let initialState: TasksStateType = {}
 
 type ActionsType =
     RemoveTaskActionType
@@ -38,7 +39,7 @@ type ActionsType =
     | AddTodoListActionType
     | RemoveTodoListActionType
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
             let newTodolist = [...state[action.todolistId].filter(t => t.id !== action.taskId)]
@@ -80,7 +81,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
             delete newSt[action.id]
                 return newSt
         default:
-            throw new Error('No valid Action Type')
+            return state
     }
 }
 
