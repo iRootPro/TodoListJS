@@ -7,8 +7,8 @@ type PropsType = {
     addItem: (title: string) => void
 }
 
-export function AddItemForm(props: PropsType) {
-
+export const  AddItemForm = React.memo((props: PropsType) => {
+    console.log('AddItemForm is called')
     let [itemName, setItemName] = useState<string>('')
     let [error, setError] = useState<string | null>(null)
 
@@ -18,6 +18,7 @@ export function AddItemForm(props: PropsType) {
     }
 
     let onAddItemNameKeyPressed = (e: KeyboardEvent<HTMLInputElement>) => {
+        if(error !== null) setError(null)
         if (e.charCode === 13) addItem()
     }
 
@@ -46,4 +47,4 @@ export function AddItemForm(props: PropsType) {
             <IconButton color={'primary'} onClick={addItem}><AddBox/></IconButton>
         </div>
     )
-}
+})

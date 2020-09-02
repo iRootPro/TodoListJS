@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {TodoList} from "./TodoList";
 import {v1} from "uuid";
@@ -48,71 +48,47 @@ function AppWithRedux() {
     let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
-    // let [todoLists, dispatchToTodolist] = useReducer(todoListsReducer, [
-    //     {
-    //         id: todolistId1,
-    //         title: 'What to learn',
-    //         filter: "all"
-    //     },
-    //     {
-    //         id: todolistId2,
-    //         title: 'What to buy',
-    //         filter: "active"
-    //     }
-    // ])
-
-    // let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
-    //     [todolistId1]: [
-    //         {id: v1(), title: 'HTML', isDone: true},
-    //         {id: v1(), title: 'JS', isDone: false},
-    //     ],
-    //     [todolistId2]: [
-    //         {id: v1(), title: 'Milk', isDone: true},
-    //         {id: v1(), title: 'React Book', isDone: false},
-    //     ]
-    // })
-
-    function changeFilter(newFilterValue: FilterValuesType, todoListId: string) {
+    const changeFilter = useCallback((newFilterValue: FilterValuesType, todoListId: string) => {
         let action = ChangeTodoListFilterAC(todoListId, newFilterValue)
         dispatch(action)
-    }
+    }, [dispatch])
 
-    function changeStatus(id: string, isDone: boolean, todolistId: string) {
+    const changeStatus = useCallback((id: string, isDone: boolean, todolistId: string) => {
         let action = changeTaskStatusAC(id, isDone, todolistId)
         dispatch(action)
-    }
+    }, [dispatch])
 
 
-    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+    const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
         let action = changeTaskTitleAC(id, newTitle, todolistId)
         dispatch(action)
 
-    }
+    }, [dispatch])
 
-    function changeTodoListTitle(todoListID: string, newTitle: string) {
+    const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
         dispatch(ChangeTodoListTitleAC(newTitle, todoListID))
-    }
+    }, [dispatch])
 
 
-    function removeTask(taskId: string, todolistId: string) {
+    const removeTask = useCallback((taskId: string, todolistId: string) => {
         dispatch(removeTaskAC(taskId, todolistId))
-    }
+    }, [dispatch])
 
 
-    function addTask(newTaskName: string, todolistId: string): void {
+    const addTask = useCallback((newTaskName: string, todolistId: string): void => {
         dispatch(addTaskAC(newTaskName, todolistId))
-    }
+    }, [dispatch])
 
 
-    function removeTodoList(id: string) {
+    const removeTodoList = useCallback((id: string) => {
         let action = RemoveTodoListAC(id)
         dispatch(action)
-    }
+    }, [dispatch])
 
-    function addTodoList(title: string) {
+    const addTodoList = useCallback((title: string) => {
         let action = AddTodoListAC(title)
         dispatch(action)
-    }
+    }, [dispatch])
 
 
     return (
@@ -135,23 +111,14 @@ function AppWithRedux() {
                 </Grid>
                 <Grid container spacing={3}>{
                     todoLists.map(t => {
-                        let allTodolistTasks = tasks[t.id]
-                        let tasksForTodoList = allTodolistTasks
-                        if (t.filter === 'active') {
-                            tasksForTodoList = allTodolistTasks.filter(task => task.isDone === false)
-                        }
-                        if (t.filter === 'completed') {
-                            tasksForTodoList = allTodolistTasks.filter(task => task.isDone === true)
-                        }
                         return (
-
                             <Grid item>
                                 <Paper style={{padding: '10px'}} elevation={10}>
                                     <TodoList
                                         key={t.id}
                                         id={t.id}
                                         title={t.title}
-                                        tasks={tasksForTodoList}
+                                        tasks={tasks[t.id]}
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}

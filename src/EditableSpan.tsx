@@ -6,7 +6,8 @@ type PropsType = {
     saveNewTitle: (newTitle: string) => void
 }
 
-export function EditableSpan(props: PropsType) {
+export const EditableSpan = (props: PropsType) => {
+    console.log('Editable is called')
     let [editMode, setEditMode] = useState<boolean>(false)
     let [title, setTitle] = useState<string>(props.title)
     const activateEditMode = () => {

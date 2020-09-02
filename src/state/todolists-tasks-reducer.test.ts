@@ -1,15 +1,11 @@
 import {TasksStateType, TodoListType} from "../App";
 import {AddTodoListAC, RemoveTodoListAC, todoListsReducer} from "./todolists-reducer";
 import {tasksReducer} from "./tasks-reducer";
-import {v1} from "uuid";
 
-// let todolistId1: string
-// let todolistId2: string
 let startState: TasksStateType = {}
 
 beforeEach(() => {
-    // todolistId1 = v1()
-    // todolistId2 = v1()
+
     startState = {
         "todolistId1": [
             { id: "1", title: "CSS", isDone: false },
