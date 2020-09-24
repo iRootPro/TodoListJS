@@ -1,15 +1,14 @@
-import {Meta} from "@storybook/react/types-6-0";
-import {AddItemForm} from "./AddItemForm";
-import React from "react";
-import {action} from "@storybook/addon-actions";
+import React from 'react'
+import {action} from '@storybook/addon-actions'
+import {AddItemForm} from './AddItemForm'
 
 export default {
-    title: 'TodoList/AddItemFormStories',
-    component: AddItemForm,
-} as Meta;
+    title: 'AddItemForm Stories',
+    component: AddItemForm
+}
 
-const callback = action("Button clicked")
-
-export const AddItemFormStories = (props: any) => {
-    return <AddItemForm addItem={callback}/>
+export const AddItemFormBaseExample = (props: any) => {
+    return (<AddItemForm
+        addItem={action('Button inside form clicked')}
+    />)
 }

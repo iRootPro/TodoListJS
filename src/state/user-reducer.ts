@@ -3,21 +3,29 @@ type StateType = {
     childrenCount: number
     name: string
 }
-
 type ActionType = {
     type: string
     [key: string]: any
 }
 
-export const userReducer = (state: StateType, action: ActionType) => {
+
+export const userReducer = (state: StateType, action: ActionType): StateType => {
     switch (action.type) {
         case 'INCREMENT-AGE':
-            return {...state, age: state.age + 1}
-        case 'INCREMENT-CHILDREN':
-            return {...state, childrenCount: state.childrenCount + 1}
+            let newState = {...state};
+            newState.age = state.age + 1;
+            return newState;
+        case 'INCREMENT-CHILDREN-COUNT':
+            return {
+                ...state,
+                childrenCount: state.childrenCount + 1
+            }
         case 'CHANGE-NAME':
-            return {...state, name: state.name = action.newName}
+            return {
+                ...state,
+                name: action.newName
+            }
         default:
-            throw new Error('No valid Action Type')
+            throw new Error("I don't understand this action type")
     }
 }
