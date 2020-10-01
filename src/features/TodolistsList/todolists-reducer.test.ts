@@ -2,11 +2,11 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC, FilterValuesType,
-    removeTodolistAC, TodolistDomainType,
+    removeTodolistAC, setTodolistsAC, TodolistDomainType,
     todolistsReducer
 } from './todolists-reducer'
 import {v1} from 'uuid'
-import {TodolistType} from "../api/todolists-api";
+import {TodolistType} from '../../api/todolists-api'
 
 let todolistId1: string
 let todolistId2: string
@@ -36,6 +36,7 @@ test('correct todolist should be added', () => {
         order: 0
     }
 
+
     const endState = todolistsReducer(startState, addTodolistAC(todolist))
 
     expect(endState.length).toBe(3)
@@ -64,4 +65,14 @@ test('correct filter of todolist should be changed', () => {
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe(newFilter)
 })
+test('todolists should be added', () => {
+
+    const action = setTodolistsAC(startState)
+
+    const endState = todolistsReducer([], action)
+
+    expect(endState.length).toBe(2)
+})
+
+
 

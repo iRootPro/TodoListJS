@@ -8,7 +8,7 @@ export default {
 }
 
 export const AddItemFormBaseExample = (props: any) => {
-    return (<AddItemForm
+    return (<AddItemForm entityStatus={'idle'}
         addItem={action('Button inside form clicked')}
     />)
 }
